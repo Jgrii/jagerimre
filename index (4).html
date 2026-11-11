@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="hu" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jáger Imre - Rendszerüzemeltető</title>
+  <meta name="description" content="Jáger Imre portfóliója - informatikai rendszer- és alkalmazás-üzemeltető technikus, mérnökinformatikus hallgató." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230e1013'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='15' font-weight='700' text-anchor='middle' fill='%234ade80'%3EJI%3C/text%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+          },
+          colors: {
+            bg: '#0e1013',       
+            surface: '#15181d',  
+            line: '#252a31',     
+            accent: '#4ade80',   
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    body { background: #0e1013; }
+    ::selection { background: #4ade80; color: #0e1013; }
+
+    .card { background: #15181d; border: 1px solid #252a31; transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease; }
+    .card:hover { border-color: #4ade80; transform: translateY(-2px); box-shadow: 0 0 0 1px rgba(74,222,128,.25); }
+    .box { background: #15181d; border: 1px solid #252a31; }
+
+    .card span[class*="border-line"] { transition: border-color .2s ease, color .2s ease; }
+    .card span[class*="border-line"]:hover { border-color: #4ade80; color: #4ade80; }
+
+    article h3 { transition: color .2s ease; }
+    article:hover h3 { color: #4ade80; }
+
+    .reveal { opacity: 0; transform: translateY(14px); transition: opacity .5s ease, transform .5s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    .grp { opacity: .45; transition: opacity .25s ease; cursor: pointer; outline: none; }
+    .grp.on, .grp:focus-visible { opacity: 1; }
+    .edge { fill: none; stroke: #2c323b; stroke-width: 1.5; transition: stroke .25s ease; }
+    .grp.on .edge { stroke: #4ade80; }
+    .hub { fill: #15181d; stroke: #2c323b; stroke-width: 1.5; transition: stroke .25s ease; }
+    .grp.on .hub, .grp:hover .hub { stroke: #4ade80; }
+    .hubtxt { fill: #e2e8f0; font-size: 12.5px; font-weight: 600; pointer-events: none; }
+    .leaf { fill: #0e1013; stroke: #3a4049; stroke-width: 1.5; transition: fill .25s ease, stroke .25s ease; }
+    .grp.on .leaf { fill: #4ade80; stroke: #4ade80; }
+    .leaftxt { fill: #94a3b8; font-size: 13px; transition: fill .2s ease; }
+    .grp.on .leaftxt { fill: #e2e8f0; }
+    .leafg:hover .leaftxt { fill: #4ade80; }
+    .rootnode { fill: #0e1013; stroke: #4ade80; stroke-width: 2; }
+
+    .row { display: flex; align-items: center; gap: .85rem; padding: .7rem .5rem; border-bottom: 1px solid #252a31; transition: background .2s ease; border-radius: .5rem; }
+    .row:last-child { border-bottom: 0; }
+    .row:hover { background: rgba(74,222,128,.07); }
+    .row:hover .rname { color: #4ade80; }
+    .dot { width: .55rem; height: .55rem; border-radius: 9999px; background: #4ade80; box-shadow: 0 0 0 3px rgba(74,222,128,.18); flex: none; }
+
+    .tab { border: 1px solid #252a31; transition: border-color .2s ease, color .2s ease; }
+    .tab:hover { border-color: #4ade80; color: #4ade80; }
+    .tab.on { border-color: #4ade80; color: #4ade80; background: rgba(74,222,128,.08); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+
+<body class="font-sans text-slate-300 antialiased">
+
+  <header class="fixed top-0 inset-x-0 z-50 bg-bg/90 backdrop-blur border-b border-line">
+    <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
+      <a href="#home" class="flex items-center gap-2.5 font-semibold text-white hover:text-accent transition">
+        <span class="w-7 h-7 rounded-md border border-accent/60 text-accent font-mono text-xs flex items-center justify-center">JI</span>
+        Jáger Imre
+      </a>
+
+      <nav class="hidden md:flex items-center gap-7 text-sm text-slate-400">
+        <a class="hover:text-accent transition" href="#about">Rólam</a>
+        <a class="hover:text-accent transition" href="#skills">Készségek</a>
+        <a class="hover:text-accent transition" href="#experience">Tapasztalat</a>
+        <a class="hover:text-accent transition" href="#projects">Projektek</a>
+        <a class="hover:text-accent transition" href="#certs">Tanúsítványok</a>
+        <a class="text-accent hover:text-white transition" href="#contact">Kapcsolat</a>
+      </nav>
+
+      <button id="menuBtn" class="md:hidden p-2 -mr-2 text-slate-300" aria-label="Menü">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+    <nav id="mobileMenu" class="hidden md:hidden px-6 pb-4 space-y-3 text-sm text-slate-300 [&>a:hover]:text-accent">
+      <a class="block" href="#about">Rólam</a>
+      <a class="block" href="#skills">Készségek</a>
+      <a class="block" href="#experience">Tapasztalat</a>
+      <a class="block" href="#projects">Projektek</a>
+      <a class="block" href="#certs">Tanúsítványok</a>
+      <a class="block text-accent" href="#contact">Kapcsolat</a>
+    </nav>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6">
+
+    <section id="home" class="pt-36 pb-24 sm:pt-44 sm:pb-32">
+      <h1 class="text-5xl sm:text-7xl font-bold text-white tracking-tight">Jáger Imre</h1>
+      <p class="mt-5 text-xl sm:text-2xl text-slate-200">
+        Informatikai rendszer- és alkalmazás-üzemeltető technikus
+      </p>
+      <p class="mt-1 text-lg text-slate-500">Mérnökinformatikus hallgató</p>
+
+      <p class="mt-8 max-w-2xl text-lg text-slate-400 leading-relaxed">
+        Hálózatokkal, rendszerekkel és automatizálással foglalkozom - hogy minden csendben és megbízhatóan működjön.
+      </p>
+
+      <div class="mt-10 flex flex-wrap gap-3">
+        <a href="#projects" class="px-5 py-2.5 rounded-lg bg-accent text-bg font-medium hover:shadow-[0_0_0_4px_rgba(74,222,128,.25)] transition">Projektek megtekintése</a>
+        <a href="assets/pdf/jager_imre-oneletrajz.pdf" target="_blank" rel="noopener"
+           class="px-5 py-2.5 rounded-lg border border-line text-white hover:border-accent hover:text-accent transition">Önéletrajz letöltése</a>
+        <a href="#contact" class="px-5 py-2.5 rounded-lg text-slate-400 hover:text-accent transition">Kapcsolat</a>
+      </div>
+    </section>
+
+    <section id="about" class="py-20 border-t border-line">
+      <h2 class="reveal font-mono text-sm text-slate-500 uppercase tracking-wider mb-10">Rólam</h2>
+
+      <div class="grid md:grid-cols-3 gap-10 items-start">
+
+        <div class="reveal md:order-2">
+          <div class="relative w-48 h-48 md:w-full md:h-auto md:aspect-square max-w-[16rem] rounded-2xl overflow-hidden box flex items-center justify-center">
+            <span class="font-mono text-5xl text-accent/70">JI</span>
+            <img src="assets/img/jagerimre.jpg" alt="Jáger Imre" class="absolute inset-0 w-full h-full object-cover" onerror="this.remove()" />
+          </div>
+          <dl class="mt-5 space-y-3 text-sm">
+            <div>
+              <dt class="font-mono text-xs text-slate-500">Jelenleg</dt>
+              <dd class="text-slate-200">Mérnökinformatika, Gábor Dénes Egyetem</dd>
+            </div>
+            <div>
+              <dt class="font-mono text-xs text-slate-500">Végzettség</dt>
+              <dd class="text-slate-200">Rendszer- és alkalmazás-üzemeltető technikus (2025)</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="reveal md:col-span-2 md:order-1 space-y-5 text-slate-300 leading-relaxed">
+          <p class="text-xl text-white font-medium leading-snug">
+            Az üzemeltetésben az fogott meg, hogy a jó munka láthatatlan: ha minden működik, senki nem veszi észre.
+          </p>
+          <p>
+            2020-ban kezdtem a Budaörsi Szent Benedek Technikumban, és hamar kiderült, hogy a hálózatok és a szerverek
+            érdekelnek a legjobban. A NeO Rendszerháznál szakmai gyakorlaton (duális képzésben) először építettem
+            vállalati hálózati szimulációkat Cisco eszközökkel, és telepítettem, konfiguráltam Windows Server és
+            kliens gépeket virtuális környezetben.
+          </p>
+          <p>
+            2021 óta programozást oktatok a Logiscoolnál. Aki tanított már, tudja: amit el tudsz magyarázni egy
+            gyereknek, azt tényleg érted. Közben az iskolai számítógépes parkot is karbantartom, és informatikai
+            táborokat szervezek, így megtanultam a szülőkkel és a csapattal való kommunikációt is.
+          </p>
+          <p>
+            Emellett saját platformot építek és üzemeltetek: az InfoSzakvizsga.HU a magyar informatikai
+            vizsgákra készülőknek szól. Most olyan csapatot keresek, ahol valós rendszereken, valós problémákon
+            tanulhatok tovább.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="py-20 border-t border-line">
+      <div class="reveal flex flex-wrap items-end justify-between gap-4 mb-10">
+        <h2 class="font-mono text-sm text-slate-500 uppercase tracking-wider">Készségek &amp; technológiák</h2>
+        <p class="font-mono text-sm text-accent flex items-center gap-2">
+          <span class="dot"></span> Minden szolgáltatás működik
+          <span class="text-slate-500">· <span id="svcCount"></span> szolgáltatás</span>
+        </p>
+      </div>
+
+      <div id="tabs" class="reveal md:hidden flex flex-wrap gap-2 mb-4 font-mono text-xs"></div>
+
+      <div class="reveal grid md:grid-cols-5 gap-5">
+        <div class="hidden md:block md:col-span-3 box rounded-xl p-4">
+          <div id="topo"></div>
+          <p class="text-xs text-slate-500 font-mono mt-2 px-1">Vidd az egeret egy csomópontra, vagy kattints rá.</p>
+        </div>
+
+        <div class="md:col-span-2 box rounded-xl p-5">
+          <div class="flex items-center justify-between mb-2 px-1">
+            <h3 id="panelTitle" class="text-white font-semibold"></h3>
+            <span id="panelCount" class="font-mono text-xs text-slate-500"></span>
+          </div>
+          <ul id="panelList"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="py-20 border-t border-line">
+      <h2 class="reveal font-mono text-sm text-slate-500 uppercase tracking-wider mb-10">Tapasztalat</h2>
+
+      <div class="border-l border-line ml-1.5 space-y-12">
+
+        <article class="reveal relative pl-8">
+          <span class="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-accent"></span>
+          <div class="flex flex-wrap items-baseline justify-between gap-x-4">
+            <h3 class="text-white text-lg font-semibold">Logiscool Kft. <span class="text-slate-500 font-normal">· Budaörs</span></h3>
+            <span class="font-mono text-sm text-slate-500">2021 - 2026</span>
+          </div>
+          <p class="text-slate-400 mt-0.5 mb-4">Programozás oktató</p>
+          <ul class="space-y-2 text-slate-300 text-[15px] list-disc list-outside ml-4 marker:text-slate-600">
+            <li>Python és blokkos programozás oktatása gyerekeknek és fiataloknak, logikus gondolkodás fejlesztése.</li>
+            <li>Iskolai számítógépes park karbantartása, szoftverek frissítése és alapvető rendszergazdai feladatok ellátása.</li>
+            <li>Informatikai táborok szervezése, lebonyolítása, valamint szülőkkel való kommunikáció.</li>
+          </ul>
+        </article>
+
+        <article class="reveal relative pl-8">
+          <span class="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-slate-500"></span>
+          <div class="flex flex-wrap items-baseline justify-between gap-x-4">
+            <h3 class="text-white text-lg font-semibold">NeO Rendszerház Kft.</h3>
+            <span class="font-mono text-sm text-slate-500">2022 - 2023</span>
+          </div>
+          <p class="text-slate-400 mt-0.5 mb-4">Szakmai gyakorlat (duális képzés)</p>
+          <ul class="space-y-2 text-slate-300 text-[15px] list-disc list-outside ml-4 marker:text-slate-600">
+            <li>Vállalati szintű hálózati szimulációk tervezése és tesztelése Cisco eszközökkel.</li>
+            <li>Virtuális operációs rendszerek (Windows Server / kliens) telepítése, konfigurálása és karbantartása.</li>
+            <li>Aktív részvétel rendszerüzemeltetési feladatokban.</li>
+          </ul>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="projects" class="py-20 border-t border-line">
+      <h2 class="reveal font-mono text-sm text-slate-500 uppercase tracking-wider mb-10">Projektek</h2>
+
+      <!-- Főprojekt -->
+      <article class="reveal card rounded-xl p-6 sm:p-8 grid md:grid-cols-2 gap-8 items-center mb-5">
+        <div>
+          <p class="font-mono text-xs text-accent mb-3 flex items-center gap-2"><span class="dot"></span> Főprojekt · fejlesztés alatt</p>
+          <h3 class="text-white font-semibold text-2xl">InfoSzakvizsga.HU</h3>
+          <p class="text-slate-400 mt-3 leading-relaxed">
+            Online felkészítő platform a magyar informatikai alap- és szakvizsgákra. Egyedül tervezem,
+            fejlesztem és üzemeltetem, a felülettől a szerveroldalig.
+          </p>
+          <ul class="mt-4 space-y-2 text-[15px] text-slate-300 list-disc list-outside ml-4 marker:text-slate-600">
+            <li>Felkészítő tartalom alapvizsga és szakvizsga szinten.</li>
+            <li>Python kód futtatása és a kimenet automatikus összehasonlítása.</li>
+            <li>Előfizetéses csomagok, többlépéses vásárlás, kuponkezelés.</li>
+            <li>Jelenleg is fejleszés alatt van így a linken keresztül nem értehő el</li>
+          </ul>
+          <div class="flex flex-wrap gap-2 mt-5 font-mono text-xs text-slate-400">
+            <span class="px-2.5 py-1 rounded-md border border-line">PHP</span>
+            <span class="px-2.5 py-1 rounded-md border border-line">Python</span>
+            <span class="px-2.5 py-1 rounded-md border border-line">HTML / CSS / JS</span>
+          </div>
+          <a href="https://infoszakvizsga.hu" target="_blank" rel="noopener"
+             class="inline-block mt-6 text-sm text-accent hover:underline underline-offset-4">Az oldal megnyitása ↗</a>
+        </div>
+
+        <div class="relative aspect-[16/10] rounded-lg overflow-hidden border border-line bg-bg flex items-center justify-center text-center p-4">
+          <span class="font-mono text-xs text-slate-600">Képernyőkép helye:<br />assets/img/infoszakvizsga.png</span>
+          <img src="assets/img/infoszakvizsga.png" alt="Az InfoSzakvizsga.HU kezdőoldala" class="absolute inset-0 w-full h-full object-cover object-top" onerror="this.remove()" />
+        </div>
+      </article>
+
+      <div class="grid md:grid-cols-2 gap-5">
+
+        <article class="reveal card rounded-xl p-6 flex flex-col">
+          <h3 class="text-white font-semibold text-lg">ZeneBona</h3>
+          <p class="text-sm text-slate-400 mt-2 flex-1 leading-relaxed">
+            Saját magamnak, és barátoknak készült zene felismerő játék.
+          </p>
+          <div class="flex flex-wrap gap-2 my-5 font-mono text-xs text-slate-400">
+            <span class="px-2 py-0.5 rounded border border-line">Cisco</span>
+            <span class="px-2 py-0.5 rounded border border-line">VLAN</span>
+            <span class="px-2 py-0.5 rounded border border-line">TCP/IP</span>
+          </div>
+          <a href="https://github.com/FELHASZNALONEV/halozati-szimulaciok" target="_blank" rel="noopener"
+             class="text-sm text-accent hover:underline underline-offset-4">GitHub / Code →</a>
+        </article>
+      </div>
+    </section>
+
+
+    <section id="certs" class="py-20 border-t border-line">
+      <h2 class="reveal font-mono text-sm text-slate-500 uppercase tracking-wider mb-10">Mikrotanúsítványok</h2>
+
+      <div class="grid sm:grid-cols-2 gap-5">
+
+        <div class="reveal card rounded-xl p-6 flex items-center justify-between gap-4">
+          <div>
+            <h3 class="text-white font-semibold">MI Jövünk - Mesterséges Intelligencia alapjai</h3>
+            <p class="text-sm text-slate-500 mt-1">Gábor Dénes Egyetem & STRT Holding Nyrt. · 2026</p>
+          </div>
+          <a href="assets/pdf/tanusitvany_1.pdf" target="_blank" rel="noopener"
+             class="shrink-0 text-sm px-3.5 py-2 rounded-lg border border-line text-slate-200 hover:border-accent hover:text-accent transition">Megtekintés</a>
+        </div>
+
+        <div class="reveal card rounded-xl p-6 flex items-center justify-between gap-4">
+          <div>
+            <h3 class="text-white font-semibold">MI Jövünk 2. - MI az irodában</h3>
+            <p class="text-sm text-slate-500 mt-1">Gábor Dénes Egyetem & STRT Holding Nyrt. · 2026</p>
+          </div>
+          <a href="assets/pdf/tanusitvany_2.pdf" target="_blank" rel="noopener"
+             class="shrink-0 text-sm px-3.5 py-2 rounded-lg border border-line text-slate-200 hover:border-accent hover:text-accent transition">Megtekintés</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="py-20 border-t border-line">
+      <h2 class="reveal font-mono text-sm text-slate-500 uppercase tracking-wider mb-10">Kapcsolat</h2>
+
+      <p class="reveal text-2xl sm:text-3xl text-white font-semibold leading-snug mb-10 max-w-xl">
+        Ha csapatot keresel, szívesen beszélgetek.
+      </p>
+
+      <div class="grid sm:grid-cols-3 gap-5">
+        <a href="mailto:jager.imre25@gmail.com" class="reveal card rounded-xl p-6 block">
+          <p class="font-mono text-xs text-slate-500 mb-1">E-mail</p>
+          <p class="text-white break-all">jager.imre25@gmail.com</p>
+        </a>
+        <a href="tel:+36205670331" class="reveal card rounded-xl p-6 block">
+          <p class="font-mono text-xs text-slate-500 mb-1">Telefon</p>
+          <p class="text-white">+36 20 567 0331</p>
+        </a>
+        <a href="https://www.linkedin.com/in/FELHASZNALONEV" target="_blank" rel="noopener" class="reveal card rounded-xl p-6 block">
+          <p class="font-mono text-xs text-slate-500 mb-1">LinkedIn</p>
+          <p class="text-white">Profil megnyitása →</p>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-line py-8 text-center text-sm text-slate-600">
+    © <span id="year"></span> Jáger Imre · <span class="font-mono">uptime: 2021 óta</span>
+  </footer>
+
+  <script>
+    const groups = [
+      { name: 'Rendszerek & hálózat', items: [
+        ['Windows Server',  'telepítés, konfigurálás, karbantartás'],
+        ['Active Directory','tartományi szolgáltatások'],
+        ['DHCP',            'hálózati címkiosztás'],
+        ['OS virtualizáció','Windows Server / kliens gépek'],
+        ['TCP/IP',          'hálózati alapok'],
+        ['Cisco',           'vállalati hálózati szimulációk'],
+      ]},
+      { name: 'Programozás', items: [
+        ['Python',        'oktatás és automatizálás'],
+        ['SQL',           'adatbázis-kezelés'],
+        ['Webfejlesztés', 'alapok, saját platform (InfoSzakvizsga.HU)'],
+      ]},
+      { name: 'Eszközök & felhő', items: [
+        ['Cloud (Oracle)',      'felhős környezet'],
+        ['Git / verziókövetés', 'változások és csapatmunka követése'],
+        ['Microsoft Office',    'irodai szoftverek'],
+      ]},
+    ];
+
+    const esc = s => s.replace(/&/g, '&amp;');
+    document.getElementById('svcCount').textContent = groups.reduce((n, g) => n + g.items.length, 0);
+
+    const ROW = 34, GAP = 22, PAD = 24;
+    const rootX = 40, hubX = 130, hubW = 160, leafX = 372, W = 560;
+    let y = PAD;
+    groups.forEach(g => {
+      g.leafY = g.items.map(() => { const v = y; y += ROW; return v; });
+      g.hubY = (g.leafY[0] + g.leafY[g.leafY.length - 1]) / 2;
+      y += GAP;
+    });
+    const H = y - GAP + PAD;
+    const rootY = (groups[0].hubY + groups[groups.length - 1].hubY) / 2;
+
+    let svg = `<svg viewBox="0 0 ${W} ${H}" class="w-full h-auto" role="img" aria-label="Készségek hálózati topológiaként">`;
+    groups.forEach((g, i) => {
+      const mx = (rootX + 10 + hubX) / 2;
+      svg += `<g class="grp" data-g="${i}" tabindex="0" role="button" aria-label="${esc(g.name)}">`;
+      svg += `<path class="edge" d="M${rootX + 10},${rootY} C${mx},${rootY} ${mx},${g.hubY} ${hubX},${g.hubY}"/>`;
+      g.leafY.forEach(ly => {
+        const lx = (hubX + hubW + leafX) / 2;
+        svg += `<path class="edge" d="M${hubX + hubW},${g.hubY} C${lx},${g.hubY} ${lx},${ly} ${leafX},${ly}"/>`;
+      });
+      svg += `<rect class="hub" x="${hubX}" y="${g.hubY - 15}" width="${hubW}" height="30" rx="8"/>`;
+      svg += `<text class="hubtxt" x="${hubX + hubW / 2}" y="${g.hubY + 4.5}" text-anchor="middle">${esc(g.name)}</text>`;
+      g.items.forEach((it, k) => {
+        svg += `<g class="leafg"><circle class="leaf" cx="${leafX}" cy="${g.leafY[k]}" r="5"/>`;
+        svg += `<text class="leaftxt" x="${leafX + 14}" y="${g.leafY[k] + 4.5}">${esc(it[0])}</text></g>`;
+      });
+      svg += `</g>`;
+    });
+    svg += `<circle class="rootnode" cx="${rootX}" cy="${rootY}" r="10"/>`;
+    svg += `<text x="${rootX}" y="${rootY + 30}" text-anchor="middle" fill="#e2e8f0" font-size="13" font-weight="600">imre</text>`;
+    svg += `</svg>`;
+    document.getElementById('topo').innerHTML = svg;
+
+    const tabs = document.getElementById('tabs');
+    tabs.innerHTML = groups.map((g, i) => `<button type="button" class="tab px-3 py-1.5 rounded-lg" data-g="${i}">${esc(g.name)}</button>`).join('');
+
+    function setGroup(i) {
+      const g = groups[i];
+      document.getElementById('panelTitle').textContent = g.name;
+      document.getElementById('panelCount').textContent = g.items.length + ' szolgáltatás';
+      document.getElementById('panelList').innerHTML = g.items.map(it =>
+        `<li class="row"><span class="dot"></span>
+           <div class="flex-1 min-w-0"><p class="rname text-sm font-medium text-white transition-colors">${esc(it[0])}</p>
+           <p class="text-xs text-slate-500">${esc(it[1])}</p></div>
+           <span class="font-mono text-[11px] text-accent">aktív</span></li>`).join('');
+      document.querySelectorAll('.grp').forEach(el => el.classList.toggle('on', +el.dataset.g === i));
+      document.querySelectorAll('.tab').forEach(el => el.classList.toggle('on', +el.dataset.g === i));
+    }
+    document.querySelectorAll('.grp').forEach(el => {
+      const i = +el.dataset.g;
+      el.addEventListener('mouseenter', () => setGroup(i));
+      el.addEventListener('click', () => setGroup(i));
+      el.addEventListener('focus', () => setGroup(i));
+      el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setGroup(i); } });
+    });
+    document.querySelectorAll('.tab').forEach(el => el.addEventListener('click', () => setGroup(+el.dataset.g)));
+    setGroup(0);
+
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
